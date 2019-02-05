@@ -13,17 +13,9 @@ function apply(name)
     if(!!name) _name = name;
     process.stdin.isTTY = process.stdout.isTTY = true;
     var newDescription = readlineSync.question('How do you describe your game? ');
-    if(!!newDescription && newDescription.length > 0)
-    {
-        _description = newDescription;
-        console.info("Description: " + _description);
-    }
+    if(!!newDescription && newDescription.length > 0) _description = newDescription;
     var newAuthor = readlineSync.question('Who are you? ');
-    if(!!newAuthor && newAuthor.length > 0)
-    {
-        _author = newAuthor;
-        console.info("Author: " + _author);
-    }
+    if(!!newAuthor && newAuthor.length > 0) _author = newAuthor;
     _applyOnFiles();
 }
 function _applyOnFiles()

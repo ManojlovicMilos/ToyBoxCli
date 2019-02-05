@@ -15,6 +15,16 @@ function parseCommand(command, arguments)
     {
         project.init(arguments[0]);
     }
+    else if(command == 'pack' || command == '-p')
+    {
+        project.pack();
+    }
+    else if(command == 'verbose')
+    {
+        settings.params.verbose = true;
+        let [, ...newArguments] = arguments;
+        parseCommand(arguments[0], newArguments);
+    }
 }
 
 module.exports = { parseCommand };

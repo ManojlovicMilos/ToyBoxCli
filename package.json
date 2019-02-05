@@ -1,9 +1,10 @@
 {
-  "name": "toybox-cli",
-  "version": "0.0.1",
+  "name": "toybox-engine-cli",
+  "version": "0.0.2",
   "description": "Command Line Interface for ToyBox Game Engine",
   "main": "cli.js",
   "scripts": {
+    "start": "node cli.js",
     "test": "test"
   },
   "keywords": [

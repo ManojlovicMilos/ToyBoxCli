@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const commands = require('./cli/commands');
 
 let [,, ...args] = process.argv;
