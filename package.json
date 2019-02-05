@@ -1,0 +1,20 @@
+{
+  "name": "toybox-cli",
+  "version": "0.0.1",
+  "description": "Command Line Interface for ToyBox Game Engine",
+  "main": "cli.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "toybox",
+    "game",
+    "engine",
+    "cli"
+  ],
+  "author": "Miloš Manojlović",
+  "license": "MIT",
+  "bin": {
+    "tbx": "cli.js"
+  }
+}
