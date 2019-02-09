@@ -4,9 +4,9 @@ const settings = require('./settings');
 const process = require('process');
 const readlineSync = require('./readline/readline.js');
 
-let _name = "New Project";
-let _description = "New TBX Engine Project";
-let _author = "Unknown";
+let _name = 'New Project';
+let _description = 'New TBX Engine Project';
+let _author = 'Unknown';
 
 function apply(name)
 {
@@ -20,19 +20,19 @@ function apply(name)
 }
 function _applyOnFiles()
 {
-    for(let i = 0; i < settings.files.length; i++)
+    for(let i = 0; i < settings.templatedFiles.length; i++)
     {
-        _replaceInFile(settings.files[i]);
+        _replaceInFile(settings.templatedFiles[i]);
     }
 }
 function _replaceInFile(path)
 {
     let data = system.read(path);
-    data = text.replace(data, "[[Name]]", _name);
-    data = text.replace(data, "[[NameCamel]]", text.camel(_name));
-    data = text.replace(data, "[[NameKebab]]", text.kebab(_name));
-    data = text.replace(data, "[[Description]]", _description);
-    data = text.replace(data, "[[Author]]", _author);
+    data = text.replace(data, '[[Name]]', _name);
+    data = text.replace(data, '[[NameCamel]]', text.camel(_name));
+    data = text.replace(data, '[[NameKebab]]', text.kebab(_name));
+    data = text.replace(data, '[[Description]]', _description);
+    data = text.replace(data, '[[Author]]', _author);
     system.write(path, data);
 }
 

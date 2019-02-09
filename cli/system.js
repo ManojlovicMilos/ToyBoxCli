@@ -11,7 +11,7 @@ function make(path)
     }
     catch (err)
     {
-        if (err.code !== 'EEXIST') console.warn("Directory " + path + " already exists");
+        if (err.code !== 'EEXIST') console.warn('Directory "' + path + '" already exists.');
     }
 }
 function rename(path, newPath)
@@ -22,7 +22,7 @@ function rename(path, newPath)
     }
     catch (err)
     {
-        console.error("Directory failed to rename: " + err);
+        console.error('Directory failed to rename: ' + err);
     }
 }
 function remove(path)
@@ -99,10 +99,11 @@ function write(path, data)
 }
 function runNpm(command, callback)
 {
-    run("npm.cmd", ["run", command], callback, "Command 'npm " + command + "' failed with code: ");
+    run(oscode('npm'), ['run', command], callback, 'Command "npm ' + command + '" failed with code: ');
 }
 function run(command, arguments, callback, errorMessage)
 {
+    logRun(command, arguments);
     process = spawn(command, arguments);
     if(settings.params.verbose)
     {
@@ -116,10 +117,24 @@ function run(command, arguments, callback, errorMessage)
             if(errorMessage) console.error(errorMessage + code);
             else
             {
-                console.error("Command '" + command + "' failed with code: " + code);
+                console.error('Command "' + command + '" failed with code: ' + code);
             }
         }
     }.bind(this));
 }
+function logRun(command, arguments)
+{
+    if(settings.params.verbose)
+    {
+        console.info(command + " " + arguments.join(' '));
+    }
+}
+function oscode(variable)
+{
+    if(settings.os != 'win') return variable;
+    if(variable == 'npm') return 'npm.cmd';
+    if(variable == '7z') return '7z.exe';
+    return variable;
+}
 
-module.exports = { make, rename, remove, copy, read, write, runNpm, run };
+module.exports = { make, rename, remove, copy, read, write, runNpm, run, oscode };
