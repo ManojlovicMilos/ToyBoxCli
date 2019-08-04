@@ -5,7 +5,7 @@ function outputHelp(details)
     console.info('');
     console.info('ToyBox CLI Commands:');
     if(details) console.info('');
-    console.info('-init (-i) project_name');
+    console.info('-init (-i) project_name (project_description) (project_author)');
     if(details) 
     {
         console.info('Creates new project folder.');
@@ -13,6 +13,8 @@ function outputHelp(details)
         console.info('You need to have npm installed on your system.');
         console.info('Arguments:');
         console.info('project_name: Name for your new project.');
+        console.info('project_description: Describe your new project.');
+        console.info('project_author: Your name.');
         console.info('Examples:');
         console.info('tbx -init MyNewProject');
         console.info('tbx -i "My New Project"');
@@ -38,7 +40,7 @@ function outputHelp(details)
         console.info('tbx -p');
         console.info('');
     }
-    console.info('-help (-h) details');
+    console.info('-help (-h) (details)');
     if(details) 
     {
         console.info('Help ypu are seeing right now.');
@@ -76,6 +78,10 @@ function outputHelp(details)
         console.info('tbx -7zip -pack');
         console.info('tbx -7 -p');
         console.info('');
+    }
+    else
+    {
+        console.info('[Add details argument with help for more information about commands.]');
     }
 } 
 

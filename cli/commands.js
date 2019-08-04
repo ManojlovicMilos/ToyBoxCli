@@ -1,5 +1,6 @@
 const project = require('./project');
 const settings = require('./settings');
+const process = require('process');
 const help = require('./help');
 
 function parseCommands(arguments)
@@ -10,7 +11,7 @@ function parseCommands(arguments)
         if(!arguments[i].startsWith('-'))
         {
             console.error('Invalid syntax: "' + arguments[i] + '" is not properly formated ToyBox CLI command.');
-            return;
+            process.exit(6);
         }
         let command = arguments[i];
         let commandArguments = [];
@@ -42,9 +43,13 @@ function executeCommand(command, arguments)
         if(arguments.length == 0)
         {
             console.error('Invalid syntax: Command "init" requires "name" argument');
-            return;
+            process.exit(10);
         } 
-        project.init(arguments[0]);
+        project.init(arguments);
+    }
+    else if(command == '-deps' || command == '-d')
+    {
+        project.installDependencies();
     }
     else if(command == '-pack' || command == '-p')
     {
@@ -58,19 +63,36 @@ function executeCommand(command, arguments)
     {
         settings.params.compression = '7zip';
     }
+    else if(command == '-no' || command == '-n')
+    {
+        if(arguments.length == 0)
+        {
+            console.error('Invalid syntax: Missing argument for command "no".');
+            process.exit(10);
+        }
+        if(arguments[0] == 'dependencies' || arguments[0] == 'deps')
+        {
+            settings.params.preinstallDependencies = false;
+        }
+        else
+        {
+            console.error('Invalid syntax: Invalid argument "' + arguments[0] + '" for command "no".');
+            process.exit(11);
+        }
+    }
     else if(command == '-help' || command == '-h')
     {
         if(arguments.length > 0 && arguments[0] != 'details')
         {
             console.error('Invalid syntax: Invalid argument "' + arguments[0] + '" for command help.');
-            return;
+            process.exit(11);
         }
         help.outputHelp(arguments[0]);
     }
     else
     {
         console.error('Invalid syntax: "' + command + '" does not exist as ToyBox CLI command.');
-        return;
+        process.exit(8);
     }
 }
 

@@ -23,6 +23,7 @@ function rename(path, newPath)
     catch (err)
     {
         console.error('Directory failed to rename: ' + err);
+        process.exit(18);
     }
 }
 function remove(path)
@@ -118,6 +119,7 @@ function run(command, arguments, callback, errorMessage)
             else
             {
                 console.error('Command "' + command + '" failed with code: ' + code);
+                process.exit(code);
             }
         }
     }.bind(this));

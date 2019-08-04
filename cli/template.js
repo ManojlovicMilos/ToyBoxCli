@@ -2,20 +2,16 @@ const text = require('./text');
 const system = require('./system');
 const settings = require('./settings');
 const process = require('process');
-const readlineSync = require('./readline/readline.js');
 
 let _name = 'New Project';
 let _description = 'New TBX Engine Project';
 let _author = 'Unknown';
 
-function apply(name)
+function apply(name, description, author)
 {
-    if(!!name) _name = name;
-    process.stdin.isTTY = process.stdout.isTTY = true;
-    var newDescription = readlineSync.question('How do you describe your game? ');
-    if(!!newDescription && newDescription.length > 0) _description = newDescription;
-    var newAuthor = readlineSync.question('Who are you? ');
-    if(!!newAuthor && newAuthor.length > 0) _author = newAuthor;
+    if(!!name && name.length > 0) _name = name;
+    if(!!description && description.length > 0) _description = description;
+    if(!!author && author.length > 0) _author = author;
     _applyOnFiles();
 }
 function _applyOnFiles()

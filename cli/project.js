@@ -5,6 +5,8 @@ const compress = require('./compress');
 const process = require('process');
 
 let projectName = 'NewProject';
+let projectDescription = 'NewProject';
+let projectAuthor = 'Unknown';
 function start()
 {
     settings.params.verbose = true;
@@ -18,9 +20,19 @@ function _compressComplete()
 {
     console.info('Build packaging complete!');
 }
-function init(name)
+function installDependencies()
 {
-    if(!!name) projectName = name;
+    system.run(system.oscode('npm'), ['install'], _dependenciesComplete, 'Failed to install dependencies, check if you have Node and NPM installed: ');
+}
+function _dependenciesComplete()
+{
+    console.info('Installing dependencies complete!');
+}
+function init(arguments)
+{
+    projectName = arguments[0];
+    projectDescription = arguments[1];
+    projectAuthor = arguments[2];
     console.info('Cloning template repository..');
     system.run('git', ['clone', settings.repo], _cloneComplete,
         'Failed to clone TBX Starter repository. Check if you have git installed and have internet connection: ');
@@ -42,14 +54,18 @@ function _checkoutComplete()
 function _pullComplete()
 {
     console.info('Applying variables to template..');
-    template.apply(projectName);
+    template.apply(projectName, projectDescription, projectAuthor);
     system.remove('.git');
-    console.info('Installing dependencies..');
-    system.run(system.oscode('npm'), ['install'], _installComplete, 'Failed to install dependencies, check if you have Node and NPM installed: ');
+    if(settings.params.preinstallDependencies)
+    {
+        console.info('Installing dependencies..');
+        system.run(system.oscode('npm'), ['install'], _installComplete, 'Failed to install dependencies, check if you have Node and NPM installed: ');
+    }
+    else _installComplete();
 }
 function _installComplete()
 {
     console.info('Project ' + projectName + ' is Ready!');
 }
 
-module.exports = { start, init, pack };
+module.exports = { start, init, pack, installDependencies };
